@@ -175,7 +175,7 @@ export function ContextProvider({ children }: ContextProviderProps) {
       responseGetInvestiment.data.withdraw
     )}, do investimento: ${responseGetInvestiment.data.description}!`;
     createNotification({
-      title: "Saque do Investimento",
+      title: "Saque - Investimento",
       content: contentNotification,
     });
 
