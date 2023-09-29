@@ -115,7 +115,7 @@ export function NewInvestmentModal() {
               {...register("period", { valueAsNumber: true })}
               className="w-full p-3 rounded-lg bg-gray-900 text-gray-300 placeholder-gray-500"
             />
-            {budgetEceeded.exceeded && <span className="text-base font-semibold text-red-500">Atenção, com essa transação você ultrapassa seu orçamento!</span>}
+            {budgetEceeded.exceeded && <span className="text-base font-semibold text-red-500">Atenção seu saldo está abaixo do orçamento, ao realizar o investimento você ultrapassará ainda mais o orçamento estipulado!</span>}
             <button
               disabled={isSubmitting}
               type="submit"

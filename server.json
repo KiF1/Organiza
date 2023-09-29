@@ -15,9 +15,50 @@
       "type": "income",
       "createdAt": "2023-09-29T16:36:36.267Z",
       "id": 2
+    },
+    {
+      "description": "Transação teste 3",
+      "category": "Teste",
+      "price": 1500,
+      "type": "income",
+      "createdAt": "2023-09-29T18:24:30.536Z",
+      "id": 3
+    },
+    {
+      "description": "Investimento Teste",
+      "category": "Investimento",
+      "price": 1300,
+      "type": "outcome",
+      "createdAt": "2023-09-29T18:25:37.565Z",
+      "id": 4
+    },
+    {
+      "description": "TRanas",
+      "category": "Teste",
+      "price": 5000,
+      "type": "outcome",
+      "createdAt": "2023-09-29T18:27:26.954Z",
+      "id": 5
+    },
+    {
+      "description": "Investimento Teste",
+      "category": "teste",
+      "price": 2000,
+      "type": "income",
+      "createdAt": "2023-09-29T18:33:39.577Z",
+      "id": 6
     }
   ],
-  "investments": [],
+  "investments": [
+    {
+      "description": "Investimento Teste",
+      "value": 1300,
+      "period": 12,
+      "withdraw": 1366.51,
+      "createdAt": "2023-09-29T18:25:37.025Z",
+      "id": 1
+    }
+  ],
   "notifications": [
     {
       "title": "Transferência Recebida",
@@ -36,6 +77,30 @@
       "content": "Você Sacou R$ 1.471,63, do investimento Investimento Teste!",
       "createdAt": "2023-09-29T16:36:36.803Z",
       "id": 3
+    },
+    {
+      "title": "Transferência Recebida",
+      "content": "Você recebeu R$ 1.500,00 em sua conta, aproveite!",
+      "createdAt": "2023-09-29T18:24:31.620Z",
+      "id": 4
+    },
+    {
+      "title": "Investimento Realizado",
+      "content": "Você Investiu R$ 1.300,00, o investimento: Investimento Teste foi realizado com sucesso!",
+      "createdAt": "2023-09-29T18:25:38.656Z",
+      "id": 5
+    },
+    {
+      "title": "Transferência Enviada",
+      "content": "Você enviou R$ 5.000,00, a transferência foi finalizada com sucesso!",
+      "createdAt": "2023-09-29T18:27:28.025Z",
+      "id": 6
+    },
+    {
+      "title": "Transferência Recebida",
+      "content": "Você recebeu R$ 2.000,00 em sua conta, aproveite!",
+      "createdAt": "2023-09-29T18:33:40.652Z",
+      "id": 7
     }
   ],
   "budget": {

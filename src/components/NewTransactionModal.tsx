@@ -161,7 +161,7 @@ export function NewTransactionModal() {
                 Saída
               </button>
             </div>
-            {budgetEceeded.exceeded && <span className="text-base font-semibold text-red-500">Atenção, com essa transação você ultrapassa seu orçamento!</span>}
+            {budgetEceeded.exceeded && <span className="text-base font-semibold text-red-500">Atenção seu saldo está abaixo do orçamento, ao realizar a transação você ultrapassará ainda mais o orçamento estipulado!</span>}
             <button
               disabled={isSubmitting}
               type="submit"
