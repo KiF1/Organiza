@@ -164,7 +164,7 @@ export function ContextProvider({ children }: ContextProviderProps) {
     });
     await api.put(`transactions/${responseTransaction.data[0].id}`, {
       description: responseGetInvestiment.data.description,
-      category: `Saque do Investimento: ${responseGetInvestiment.data.description}`,
+      category: `Saque - Investimento`,
       price: responseGetInvestiment.data.withdraw,
       type: "income",
       createdAt: new Date(),
