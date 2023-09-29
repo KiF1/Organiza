@@ -48,6 +48,12 @@
       "email": "abner.kif1@gmail.com",
       "password": "123456",
       "id": 1
+    },
+    {
+      "name": "WXR",
+      "email": "teste@gmail.com",
+      "password": "123123",
+      "id": 2
     }
   ]
 }

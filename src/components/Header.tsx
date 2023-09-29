@@ -9,6 +9,7 @@ import {
   Bitcoin,
   CircleDollarSign,
   FileCheck2,
+  LogOut,
   Receipt,
   Wallet,
 } from "lucide-react";
@@ -16,12 +17,14 @@ import { NewInvestmentModal } from "@/components/NewInvestmentModal";
 import { NewTransactionModal } from "@/components/NewTransactionModal";
 import { Context } from "@/contexts/Context";
 import { useContextSelector } from "use-context-selector";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Notifications } from "./Notifications";
 import { NewBudgetModal } from "./NewBudget";
+import Cookies from "js-cookie";
 
 export default function Header() {
   const currentRoute = usePathname();
+  const router = useRouter();
   const dashboardRouteActive: boolean =
     currentRoute === "/dashboard" || currentRoute === "/dashboard/statistics";
 
@@ -29,9 +32,10 @@ export default function Header() {
     return context.transactions;
   });
 
-  const investments = useContextSelector(Context, (context) => {
-    return context.investments;
-  });
+  async function handleSignout() {
+      await Cookies.remove("user-logged");
+      await router.push("/user/login");
+  }
 
   return (
     <header className="bg-gray-900 py-10 pb-32 px-6 xl:px-28">
@@ -99,6 +103,10 @@ export default function Header() {
             </Dialog.Trigger>
             <NewBudgetModal />
           </Dialog.Root>
+          <button onClick={handleSignout}  className="h-14 border-0 bg-red-500 text-base text-white font-bold md:px-5 rounded-lg cursor-pointer flex justify-center items-center gap-2 text-decoration-none hover:bg-red-700">
+            <LogOut className="w-5 h-5" size={20} />
+              Sair
+          </button>
         </div>
       </div>
     </header>
