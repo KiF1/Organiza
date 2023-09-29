@@ -42,8 +42,9 @@ export default function Login() {
     if (userExists) {
       await Cookies.set("user-logged", "true", { expires: 30, path: "/" });
       await router.push("/dashboard");
+    }else{
+      setError(true);
     }
-    setError(true);
   }
 
   useEffect(() => {
