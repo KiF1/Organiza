@@ -48,44 +48,48 @@ export default function Investments() {
     <div>
       <Header />
       <Summary />
-      <div className="w-full flex flex-col gap-10 max-w-[1280px] mx-auto mt-16 px-6">
+      <div className="w-full flex flex-col gap-10 max-w-[1280px] mx-auto mt-16 px-6 mb-8">
         <SearchFormInvestiment />
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {investments.map((investment) => (
-            <div
-              key={investment.id}
-              className="w-full flex flex-col gap-2 rounded-lg py-5 px-8 bg-gray-700"
-            >
-              <h1 className="text-1.35rem font-bold mb-1rem">
-                {investment.description}
-              </h1>
-              <strong className="text-1rem font-normal">
-                Valor Investido:{" "}
-                <span className="text-green-300">{investment.value}</span>
-              </strong>
-              <strong className="text-1rem font-normal">
-                Possível Saque:{" "}
-                <span>{priceFormatter.format(investment.withdraw)}</span>
-              </strong>
-              <strong className="text-1rem font-normal">
-                Período de Investimento: {investment.period} meses
-              </strong>
-              <strong className="text-1rem">{investment.createdAt}</strong>
-              <button
-                onClick={() => withdrawInvestment(investment.id)}
-                disabled={investment.disableWithdraw}
-                type="button"
-                className={`h-14 border-0 bg-green-500 text-white mt-4 font-bold px-5 rounded-lg mt-1.5rem ${
-                  investment.disableWithdraw
-                    ? "bg-green-700 cursor-not-allowed"
-                    : "hover:bg-green-700 transition-background"
-                }`}
+        {investments.length >= 1 ? (
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {investments.map((investment) => (
+              <div
+                key={investment.id}
+                className="w-full flex flex-col gap-2 rounded-lg py-5 px-8 bg-gray-700"
               >
-                Sacar Investimento
-              </button>
-            </div>
-          ))}
-        </div>
+                <h1 className="text-1.35rem font-bold mb-1rem">
+                  {investment.description}
+                </h1>
+                <strong className="text-1rem font-normal">
+                  Valor Investido:{" "}
+                  <span className="text-green-300">{investment.value}</span>
+                </strong>
+                <strong className="text-1rem font-normal">
+                  Possível Saque:{" "}
+                  <span>{priceFormatter.format(investment.withdraw)}</span>
+                </strong>
+                <strong className="text-1rem font-normal">
+                  Período de Investimento: {investment.period} meses
+                </strong>
+                <strong className="text-1rem">{investment.createdAt}</strong>
+                <button
+                  onClick={() => withdrawInvestment(investment.id)}
+                  disabled={investment.disableWithdraw}
+                  type="button"
+                  className={`h-14 border-0 bg-green-500 text-white mt-4 font-bold px-5 rounded-lg mt-1.5rem ${
+                    investment.disableWithdraw
+                      ? "bg-green-700 cursor-not-allowed"
+                      : "hover:bg-green-700 transition-background"
+                  }`}
+                >
+                  Sacar Investimento
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <span className="text-green-500 text-xl font-semibold">Infelizmente não existe investimentos cadastrados!</span>
+        )}
       </div>
     </div>
   );

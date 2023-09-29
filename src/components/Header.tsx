@@ -8,6 +8,7 @@ import {
   Bell,
   Bitcoin,
   CircleDollarSign,
+  FileCheck2,
   Receipt,
   Wallet,
 } from "lucide-react";
@@ -33,28 +34,23 @@ export default function Header() {
   });
 
   return (
-    <header className="bg-gray-900 py-10 pb-32 px-10 md:px-28">
+    <header className="bg-gray-900 py-10 pb-32 px-6 xl:px-28">
       <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-6 justify-between">
-        <Link href="/dashboard">
-          <Image
-            src={logo}
-            width={24}
-            height={24}
-            alt="logo"
-            className="w-8 object-contain h-8"
-          />
-        </Link>
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 mt-8 md:mt-0 md:w-fit md:flex items-center gap-6">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:flex  md:mt-0 lg:w-fit items-center gap-6">
+          <Link href="/dashboard" className="h-14 border-0 bg-green-500 text-base text-white font-bold md:px-5 rounded-lg cursor-pointer flex justify-center items-center gap-2 text-decoration-none hover:bg-green-700">
+            <FileCheck2 className="w-5 h-5" size={20} />
+              Transações
+          </Link>
           {transactions.length >= 1 && (
             <Link
               href="/dashboard/statistics"
-              className="w-full md:w-fit h-14 border-0 bg-green-500 text-base text-white font-bold md:px-5 rounded-lg cursor-pointer flex justify-center items-center gap-2 text-decoration-none hover:bg-green-700"
+              className="h-14 border-0 bg-green-500 text-base text-white font-bold md:px-5 rounded-lg cursor-pointer flex justify-center items-center gap-2 text-decoration-none hover:bg-green-700"
             >
               <BarChart3 className="w-5 h-5" size={20} />
               Estatísticas
             </Link>
           )}
-          {investments.length >= 1 && (
+          {transactions.length >= 1 && (
             <Link
               href="/dashboard/investments"
               className="h-14 border-0 bg-green-500 text-base text-white font-bold md:px-5 rounded-lg cursor-pointer flex justify-center items-center gap-2 text-decoration-none hover:bg-green-700"

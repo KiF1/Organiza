@@ -14,12 +14,12 @@ export function Notifications() {
   return (
     <Dialog.Portal>
       <div className="fixed w-full h-full inset-0 bg-black bg-opacity-75">
-        <div className="w-[85%] md:w-[35%] mx-auto p-10 bg-gray-800 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md">
+        <div className="w-[85%] h-[500px] md:w-[35%] mx-auto p-10 bg-gray-800 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md">
           <Dialog.Title className="text-white">Notificações</Dialog.Title>
           <Dialog.Close className="absolute top-6 right-6 bg-transparent border-0 cursor-pointer text-gray-500">
             <X size={24} />
           </Dialog.Close>
-          <div className="w-full flex flex-col gap-4 mt-8">
+          <div className="w-full h-[350px] pr-4 overflow-y-scroll flex flex-col gap-4 mt-8">
             {notifications.map((notification, index) => (
               <Accordion.Root
                 key={index}
@@ -32,7 +32,7 @@ export function Notifications() {
                   value="item-1"
                 >
                   <div className="w-full flex justify-between items-center">
-                    <Accordion.Trigger className="w-full bg-transparent h-fit flex-1 py-2 grid grid-cols-[1fr_0.15fr] items-center text-start text-[1rem] leading-[1] text-white">
+                    <Accordion.Trigger className="w-full bg-transparent h-fit flex-1 py-2 grid grid-cols-[1fr_0.15fr] items-center text-start text-sm sm:text-[1rem] leading-[1] text-white">
                       {notification.title}
                       <ChevronDownIcon
                         className="w-full text-red group-data-[state=open]:rotate-180"

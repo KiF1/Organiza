@@ -9,6 +9,7 @@ import { useContextSelector } from "use-context-selector";
 import { Context } from "@/contexts/Context";
 import { api } from "@/lib/axios";
 import { priceFormatter } from "@/utils/formatter";
+import toast, { Toaster } from "react-hot-toast";
 
 const newBudgetFormSchema = z.object({
   value: z.number(),
@@ -34,13 +35,41 @@ export function NewBudgetModal() {
   });
 
   async function handleCreateNewBudget(data: NewBudgetFormInputs) {
-    const { value } = data;
-    await createBudget.createBudget({ value });
-    reset();
+    try {
+      const { value } = data;
+      await createBudget.createBudget({ value });
+      toast.success(`Orçamento salvo com sucesso, o novo orçamento definido é de ${priceFormatter.format(value)}!`)
+      reset();
+    } catch {
+      toast.error('Erro ao salvar orçamento')
+    }
   }
 
   return (
     <Dialog.Portal>
+      <Toaster position="top-right" reverseOrder={true} toastOptions={{
+        duration: 5000,
+        style: {
+          padding: '12px 16px',
+          borderRadius: '16px'
+        },
+        success: {
+          style: {
+            backgroundColor: '#323238',
+            color: '#ffffff',
+            fontSize: '16px',
+            fontWeight: '500'
+          }
+        },
+        error: {
+          style: {
+            backgroundColor: '#323238',
+            color: '#AB222E',
+            fontSize: '16px',
+            fontWeight: '500'
+          }
+        }
+      }} />
       <div className="fixed w-full h-full inset-0 bg-black bg-opacity-75">
         <div className="w-[85%] md:w-[35%] mx-auto p-10 bg-gray-800 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md">
           <Dialog.Title className="text-white">Novo Orçamento</Dialog.Title>

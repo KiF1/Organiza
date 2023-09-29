@@ -4,9 +4,18 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ArrowDownCircle, ArrowUpCircle, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContextSelector } from "use-context-selector";
 import { Context } from "@/contexts/Context";
+import toast, { Toaster } from "react-hot-toast";
+import { priceFormatter } from "@/utils/formatter";
+import { useSummary } from "@/Hooks/useSummary";
+
+export interface BudgetState {
+  valueExceeded: string;
+  exceeded: boolean
+}
+
 const newTransactionFormSchema = z.object({
   description: z.string(),
   price: z.number(),
@@ -18,6 +27,8 @@ type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
 export function NewTransactionModal() {
   const [incomeActive, setIncomeActive] = useState(false);
   const [outcomeActive, setOutcomeActive] = useState(false);
+  const [budgetEceeded, setBudgetEceeded] = useState<BudgetState>({} as BudgetState);
+  const summary = useSummary();
 
   const {
     register,
@@ -26,6 +37,13 @@ export function NewTransactionModal() {
     reset,
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
+  });
+
+  const context = useContextSelector(Context, (context) => {
+    return {
+      budget: context.budget.value,
+      createTransaction: context.createTransaction
+    }
   });
 
   function activeTypeTransaction(typeButton: string) {
@@ -38,22 +56,60 @@ export function NewTransactionModal() {
     }
   }
 
-  const createTransaction = useContextSelector(Context, (context) => {
-    return context.createTransaction;
-  });
-
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
-    await createTransaction({
-      description: data.description,
-      price: data.price,
-      category: data.category,
-      type: incomeActive ? "income" : "outcome",
-    });
-    reset();
+    try {
+      await context.createTransaction({
+        description: data.description,
+        price: data.price,
+        category: data.category,
+        type: incomeActive ? "income" : "outcome",
+      });
+      const priceFormatted = priceFormatter.format(data.price);
+      if(incomeActive){
+        toast.success(`Transação realizada com sucesso, você recebeu ${priceFormatted} em sua conta!`)
+      }else{
+        toast.success(`Transação realizada com sucesso, você retirou ${priceFormatted} da sua conta!`)
+      }
+      reset();
+    } catch {
+      toast.error('Erro ao realizar transação')
+    }
   }
+
+  useEffect(() => {
+    const valueExceeded = priceFormatter.format(summary.total - context.budget)
+    if(outcomeActive && summary.total - context.budget <= 0){
+      setBudgetEceeded({ valueExceeded, exceeded: true });
+    }else if(incomeActive){
+      setBudgetEceeded({ valueExceeded, exceeded: false});
+    }
+  }, [outcomeActive, incomeActive])
 
   return (
     <Dialog.Portal>
+      <Toaster position="top-right" reverseOrder={true} toastOptions={{
+        duration: 5000,
+        style: {
+          padding: '12px 16px',
+          borderRadius: '16px'
+        },
+        success: {
+          style: {
+            backgroundColor: '#323238',
+            color: '#ffffff',
+            fontSize: '16px',
+            fontWeight: '500'
+          }
+        },
+        error: {
+          style: {
+            backgroundColor: '#323238',
+            color: '#AB222E',
+            fontSize: '16px',
+            fontWeight: '500'
+          }
+        }
+      }} />
       <div className="fixed w-full h-full inset-0 bg-black bg-opacity-75">
         <div className="w-[85%] md:w-[35%] mx-auto p-10 bg-gray-800 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md">
           <Dialog.Title className="text-white">Nova Transação</Dialog.Title>
@@ -105,6 +161,7 @@ export function NewTransactionModal() {
                 Saída
               </button>
             </div>
+            {budgetEceeded.exceeded && <span className="text-base font-semibold text-red-500">Atenção, com essa transação você ultrapassa seu orçamento!</span>}
             <button
               disabled={isSubmitting}
               type="submit"

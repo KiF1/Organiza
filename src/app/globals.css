@@ -20,3 +20,17 @@ textarea,
 button {
   font: 400 1rem Roboto, sans-serif;
 }
+
+::-webkit-scrollbar-track {
+  background-color: #323238;
+  border-radius: 5px;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  background: #323238;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #121214;
+  border-radius: 5px;
+}

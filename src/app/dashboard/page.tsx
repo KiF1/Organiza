@@ -16,11 +16,19 @@ export default function Dashboard() {
     <div>
       <Header />
       <Summary />
-      <div className="w-full max-w-screen-xl mx-auto px-6 flex flex-col gap-4 md:gap-12 mt-16">
+      <div className="w-full max-w-screen-xl mx-auto px-6 flex flex-col gap-4 md:gap-12 mt-16 mb-8">
         <SearchForm />
 
-        <table className="w-full hidden md:block border-separate mt-6">
+        {transactions.length >= 1 ? 
+        <>
+          <table className="w-full hidden md:table border-separate mt-6">
           <tbody>
+            <tr className="mt-4 bg-gray-700">
+              <td className="w-1/2 py-5 px-8 rounded-l-lg">Descrição da Transação</td>
+              <td className="py-5 px-8">Valor da Transação</td>
+              <td className="py-5 px-8">Categoria da Transação</td>
+              <td className="py-5 px-8 rounded-r-lg">Data da Transação</td>
+            </tr>
             {transactions.map((transaction) => (
               <tr className="mt-4 bg-gray-700" key={transaction.id}>
                 <td className="w-1/2 py-5 px-8 rounded-l-lg">
@@ -68,6 +76,9 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
+        </> : (
+          <span className="text-green-500 text-xl font-semibold">Infelizmente não existe transações cadastradas!</span>
+        )}
       </div>
     </div>
   );

@@ -39,7 +39,8 @@ export default function Statistics() {
     <div>
       <Header />
       <Summary />
-      <div className="w-[85%] mx-auto flex flex-col gap-10 mt-16">
+     {transactionsIncome.length >= 3 || transactionsOutcome.length >= 3 ? (
+       <div className="w-[85%] mx-auto flex flex-col gap-10 mt-16">
         {transactionsIncome.length >= 2 && (
           <div className="w-full min-h-[300px] flex flex-col gap-8 rounded-lg bg-gray-700 p-6">
             <h1 className="text-xl font-bold">Valores em Caixa</h1>
@@ -97,6 +98,9 @@ export default function Statistics() {
           </div>
         )}
       </div>
+     ): (
+      <span className="text-green-500 text-xl font-semibold w-full flex max-w-[1280px] mx-auto mt-16 px-6 mb-8">Cadastre pelo menos 3 transações para que possa vizualizar os gráficos!</span>
+     )}
     </div>
   );
 }
