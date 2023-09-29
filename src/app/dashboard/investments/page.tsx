@@ -5,10 +5,11 @@ import { SearchFormInvestiment } from "@/components/SearchInvestiment";
 import { Summary } from "@/components/Summary";
 import { Context } from "@/contexts/Context";
 import { dateFormatter, priceFormatter } from "@/utils/formatter";
+import toast, { Toaster } from "react-hot-toast";
 import { useContextSelector } from "use-context-selector";
 
 export default function Investments() {
-  const withdrawInvestment = useContextSelector(Context, (context) => {
+  const withdrawInvestmentContext = useContextSelector(Context, (context) => {
     return context.withdrawInvestment;
   });
 
@@ -44,10 +45,42 @@ export default function Investments() {
     });
   });
 
+  async function withdrawInvestment(id: number, withdraw: number, name: string){
+    try {
+      await withdrawInvestmentContext(id);
+      await toast.success(`Saque realizado com sucesso, você sacou ${priceFormatter.format(withdraw)} do investimento ${name}, o valor já está na sua conta disponível para uso!`)
+    } catch {
+      toast.error('Erro ao realizar Saque')
+    }
+  }
+
   return (
     <div>
       <Header />
       <Summary />
+      <Toaster position="top-right" reverseOrder={true} toastOptions={{
+        duration: 5000,
+        style: {
+          padding: '12px 16px',
+          borderRadius: '16px'
+        },
+        success: {
+          style: {
+            backgroundColor: '#323238',
+            color: '#ffffff',
+            fontSize: '16px',
+            fontWeight: '500'
+          }
+        },
+        error: {
+          style: {
+            backgroundColor: '#323238',
+            color: '#AB222E',
+            fontSize: '16px',
+            fontWeight: '500'
+          }
+        }
+      }} />
       <div className="w-full flex flex-col gap-10 max-w-[1280px] mx-auto mt-16 px-6 mb-8">
         <SearchFormInvestiment />
         {investments.length >= 1 ? (
@@ -73,7 +106,7 @@ export default function Investments() {
                 </strong>
                 <strong className="text-1rem">{investment.createdAt}</strong>
                 <button
-                  onClick={() => withdrawInvestment(investment.id)}
+                  onClick={() => withdrawInvestment(investment.id, investment.withdraw, investment.description)}
                   disabled={investment.disableWithdraw}
                   type="button"
                   className={`h-14 border-0 bg-green-500 text-white mt-4 font-bold px-5 rounded-lg mt-1.5rem ${

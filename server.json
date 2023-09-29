@@ -7,6 +7,14 @@
       "type": "income",
       "createdAt": "2023-09-29T15:26:32.108Z",
       "id": 1
+    },
+    {
+      "description": "Investimento Teste",
+      "category": "Saque do Investimento: Investimento Teste",
+      "price": 1471.63,
+      "type": "income",
+      "createdAt": "2023-09-29T16:36:36.267Z",
+      "id": 2
     }
   ],
   "investments": [],
@@ -16,6 +24,18 @@
       "content": "Você recebeu R$ 1.500,00 em sua conta, aproveite!",
       "createdAt": "2023-09-29T15:26:33.186Z",
       "id": 1
+    },
+    {
+      "title": "Investimento Concluído",
+      "content": "Você Investiu R$ 1.400,00, o investimento Investimento Teste foi realizado com sucesso!",
+      "createdAt": "2023-09-29T16:35:47.515Z",
+      "id": 2
+    },
+    {
+      "title": "Saque do Investimento",
+      "content": "Você Sacou R$ 1.471,63, do investimento Investimento Teste!",
+      "createdAt": "2023-09-29T16:36:36.803Z",
+      "id": 3
     }
   ],
   "budget": {

@@ -173,7 +173,7 @@ export function ContextProvider({ children }: ContextProviderProps) {
 
     const contentNotification = `Você Sacou ${priceFormatter.format(
       responseGetInvestiment.data.withdraw
-    )}, a investimento foi sacado com sucesso!`;
+    )}, do investimento: ${responseGetInvestiment.data.description}!`;
     createNotification({
       title: "Saque do Investimento",
       content: contentNotification,
@@ -252,9 +252,9 @@ export function ContextProvider({ children }: ContextProviderProps) {
 
     const contentNotification = `Você Investiu ${priceFormatter.format(
       value
-    )}, a investimento foi realizado com sucesso!`;
+    )}, o investimento: ${description} foi realizado com sucesso!`;
     createNotification({
-      title: "Investimento Concluído",
+      title: "Investimento Realizado",
       content: contentNotification,
     });
     setInvestments((state) => [responseInvestment.data, ...state]);
